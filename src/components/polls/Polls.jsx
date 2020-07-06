@@ -8,11 +8,12 @@ const Polls = ({ getPolls, poll: { polls } }) => {
   useEffect(() => {
     getPolls();
   }, [getPolls]);
+  console.log(polls);
   return (
     <Fragment>
       <div className='row'>
         {polls.map((poll) => (
-          <PollItem key={poll._id} poll={poll} choices={poll.choices} />
+          <PollItem key={poll._id} poll={poll} />
         ))}
       </div>
     </Fragment>

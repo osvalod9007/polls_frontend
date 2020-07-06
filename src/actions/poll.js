@@ -34,7 +34,7 @@ export const addVote = (id) => async (dispatch) => {
 
     dispatch({
       type: UPDATE_VOTE,
-      payload: { id, votes: res.data.choices },
+      payload: { id: res.data._id, choices: res.data.choices },
     });
   } catch (err) {
     dispatch({

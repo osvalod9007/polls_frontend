@@ -11,8 +11,6 @@ import {
 const initialState = {
   polls: [],
   poll: null,
-  choices: [],
-  choice: null,
   loading: true,
   error: {},
 };
@@ -36,10 +34,16 @@ export default function (state = initialState, action) {
     case UPDATE_VOTE:
       return {
         ...state,
-        choices: state.choices.map((choice) =>
-          choice._id === payload.id
-            ? { ...choice, votes: payload.votes }
-            : choice
+        polls: state.polls.map(
+          (poll) =>
+            poll._id === payload.id
+              ? { ...poll, choices: payload.choices }
+              : poll
+          // poll.choices.map((choice) =>
+          //   choice.votes.map((vote) =>
+          //     vote._id === payload.id ? { ...poll, poll: payload.poll } : poll
+          //   )
+          // )
         ),
         loading: false,
       };

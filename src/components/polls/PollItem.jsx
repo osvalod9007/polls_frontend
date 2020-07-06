@@ -4,16 +4,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addVote } from '../../actions/poll';
 
-const PollItem = ({ addVote, auth, poll, choices }) => {
+const PollItem = ({
+  addVote,
+  auth,
+  poll: { topic, author, status, choices },
+}) => {
   const [voteChoice, setVoteChoice] = useState('');
   let totalVotes = 0;
   let isVote = {};
-  let voteUser = poll.choices.map((choice) => {
+  let voteUser = choices.map((choice) => {
     totalVotes += choice.votes.length;
     return choice.votes.find((vote) => vote.user);
   });
-
-  console.log(totalVotes);
 
   isVote = choices.find((choice) =>
     choice.votes.find((vote) => vote.user === auth.user._id)
@@ -23,7 +25,7 @@ const PollItem = ({ addVote, auth, poll, choices }) => {
     setVoteChoice(e.target.value);
   };
   const onSubmit = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     addVote(voteChoice);
   };
   return (
@@ -31,9 +33,9 @@ const PollItem = ({ addVote, auth, poll, choices }) => {
       <div className='col s4'>
         <div className='card'>
           <div className='card-content Black-text'>
-            <span className='card-title'>{poll.topic}</span>
-            <h6>Author: {` ${poll.author}`}</h6>
-            {!poll.status && !isVote ? (
+            <span className='card-title'>{topic}</span>
+            <h6>Author: {` ${author}`}</h6>
+            {!status && !isVote ? (
               <form onSubmit={onSubmit}>
                 {choices.map((choice) => (
                   <p key={choice._id}>
@@ -88,7 +90,6 @@ const PollItem = ({ addVote, auth, poll, choices }) => {
 
 PollItem.propTypes = {
   poll: PropTypes.object.isRequired,
-  choices: PropTypes.array.isRequired,
   auth: PropTypes.object.isRequired,
   addVote: PropTypes.func.isRequired,
 };
