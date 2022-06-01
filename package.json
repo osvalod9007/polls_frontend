@@ -9,7 +9,7 @@
     "axios": "^0.19.2",
     "fontsource-roboto": "^2.1.4",
     "materialize-css": "^1.0.0-rc.2",
-    "moment": "^2.27.0",
+    "moment": "^2.29.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-moment": "^0.9.7",
